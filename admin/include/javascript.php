@@ -1,11 +1,31 @@
 <script src="../boostrap/js/jquery-3.3.1.min.js" ></script>
+
 <script src="../boostrap/js/sweetalert.min.js"></script>
 <script src="../boostrap/js/app.js"></script>
+<script src="../boostrap/js/tinymce.min.js" referrerpolicy="origin"></script>
 <!-- <script src="../boostrap/js/app.js"></script> -->
 
 	
 	<!-- Data Tables -->
+	<script type="text/javascript">
+		$("#addRow").click(function () {
+			var html = '';
+			html +='<tr>';
+				html +='<td><input type="text" name="txt_product" class="form-control"></td>';
+				html +='<td><input type="text" name="txt_quantity" class="form-control"></td>';
+			html +='</tr>';
+        $('#newRow').append(html);
+        return false;
+	    });
+
+	    // remove row
+	    $(document).on('click', '#removeRow', function () {
+	        $(this).closest('#inputFormRow').remove();
+	    });
+
+	</script>
 	<script>
+	tinymce.init({selector:'textarea'});
 	  jQuery(document).ready(function($) {
 
 	    "use strict";
@@ -18,8 +38,8 @@
 
 	  });
 
-		//------------------------------- JADWAL 
-		function delete_jadwal(id){
+		//------------------------------- produk 
+		function delete_produk(id){
 	       swal({
 	        title: "Are you sure?",
 	        text: "",
@@ -31,12 +51,12 @@
 	          if (willDelete) {
 	              $.ajax({
 	              type: 'post',
-	              url: 'Controller/master_p.php?role=DELETE_JADWAL',
+	              url: 'Controller/master_p.php?role=DELETE_PRODUK',
 	              data: {idx:id},
 	              success: function (data) {
 	                  swal(
 	                      'Deleted!',
-	                      'Your Schedule has been deleted.',
+	                      'Your Product has been deleted.',
 	                      'success'
 	                    ).then(function(){
 	                      location.reload();
@@ -45,315 +65,29 @@
 	              }         
 	              }); 
 	          } else {
-	            swal("Your Unit file is safe!");
+	            swal("Your Product file is safe!");
 	          }
 	        });
 	    }
-	    function edit_jadwal(id){
+	    function edit_produk(id){
 	      $.ajax({
-	          url: 'controller/master_p.php?role=EDIT_JADWAL',
+	          url: 'controller/master_p.php?role=EDIT_PRODUK',
 	          type: 'post',
 	          data: {id: id},
 	          success: function(body_Edit){ 
 	           
 	            // Add response in Modal body
-	            $('.modalEditJadwal').html(body_Edit);
+	            $('.modalEditProduks').html(body_Edit);
 	            // Display Modal
-	            $('#editjadwal').modal('show');
+
+	            $('#editProduks').modal('show');
+	            tinymce.init({selector:'textarea'});
+
 	          }
 	        });
 	    }
 	    //------------------------------- END OF JADWAL 
 
-	    //------------------------------- KADER POSYANDU 
-		function delete_kader(id){
-	       swal({
-	        title: "Anda yakin ingin menghapus data ini?",
-	        text: "",
-	        icon: "warning",
-	        buttons: true,
-	        dangerMode: true,
-	        })
-	        .then((willDelete) => {
-	          if (willDelete) {
-	              $.ajax({
-	              type: 'post',
-	              url: 'Controller/profile_p.php?role=DELETE_KADER',
-	              data: {id_kader:id},
-	              success: function (data) {
-	                  swal(
-	                      'Deleted!',
-	                      'Data kader berhasil dihapus.',
-	                      'success'
-	                    ).then(function(){
-	                      location.reload();
-	                   });
-
-	              }         
-	              }); 
-	          } else {
-	            swal("Your Unit file is safe!");
-	          }
-	        });
-	    }
-	    function edit_kader(id){
-	      $.ajax({
-	          url: 'controller/profile_p.php?role=EDIT_KADER',
-	          type: 'post',
-	          data: {id_kader: id},
-	          success: function(body_Edit){ 
-	           
-	            // Add response in Modal body
-	            $('.modalEditKader').html(body_Edit);
-	            // Display Modal
-	            $('#editkader').modal('show');
-	          }
-	        });
-	    }
-	    //------------------------------- END OF KADER POSYANDU 
-
-	    //------------------------------- BIDAN POSYANDU 
-		function delete_bidan(id){
-	       swal({
-	        title: "Anda yakin ingin menghapus data ini?",
-	        text: "",
-	        icon: "warning",
-	        buttons: true,
-	        dangerMode: true,
-	        })
-	        .then((willDelete) => {
-	          if (willDelete) {
-	              $.ajax({
-	              type: 'post',
-	              url: 'Controller/profile_p.php?role=DELETE_BIDAN',
-	              data: {id_bidan:id},
-	              success: function (data) {
-	                  swal(
-	                      'Deleted!',
-	                      'Data bidan berhasil dihapus.',
-	                      'success'
-	                    ).then(function(){
-	                      location.reload();
-	                   });
-
-	              }         
-	              }); 
-	          } else {
-	            swal("Your Unit file is safe!");
-	          }
-	        });
-	    } 
-	    //------------------------------- END OF BIDAN POSYANDU 
-
-	    //------------------------------- PASIEN POSYANDU 
-		function delete_pasien(id){
-	       swal({
-	        title: "Anda yakin ingin menghapus data ini?",
-	        text: "",
-	        icon: "warning",
-	        buttons: true,
-	        dangerMode: true,
-	        })
-	        .then((willDelete) => {
-	          if (willDelete) {
-	              $.ajax({
-	              type: 'post',
-	              url: 'Controller/profile_p.php?role=DELETE_PASIEN',
-	              data: {id_pasien:id},
-	              success: function (data) {
-	                  swal(
-	                      'Deleted!',
-	                      'Data pasien berhasil dihapus.',
-	                      'success'
-	                    ).then(function(){
-	                      location.reload();
-	                   });
-              }         
-              }); 
-          } else {
-            swal("Your schedule file is safe!");
-          }
-        });
-    }
-    function edit_jadwal(id){
-      $.ajax({
-          url: 'controller/master_p.php?role=EDIT_JADWAL',
-          type: 'post',
-          data: {id: id},
-          success: function(body_Edit){ 
-           
-            // Add response in Modal body
-            $('.modalEditJadwal').html(body_Edit);
-            // Display Modal
-            $('#addjadwal').modal('show');
-          }
-        });
-    }
-
-    //--------------------------------- informasi
-     function delete_informasi(id){
-       swal({
-        title: "Are you sure?",
-        text: "",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
-              $.ajax({
-              type: 'post',
-              url: 'Controller/master_p.php?role=DELETE_INFORMASI',
-              data: {idx:id},
-              success: function (data) {
-                  swal(
-                      'Deleted!',
-                      'Your Information has been deleted.',
-                      'success'
-                    ).then(function(){
-                      location.reload();
-                   });
-
-              }         
-              }); 
-          } else {
-            swal("Your Information file is safe!");
-          }
-        });
-    }
-    function detail_informasi(id){
-      $.ajax({
-          url: 'controller/master_p.php?role=DETAIL_INFORMASI',
-          type: 'post',
-          data: {id: id},
-          success: function(body_Edit){ 
-           
-            // Add response in Modal body
-            $('.modalDetailInformasi').html(body_Edit);
-            // Display Modal
-            $('#detailInformasi').modal('show');
-          }
-        });
-    }
-    function edit_informasi(id){
-      $.ajax({
-          url: 'controller/master_p.php?role=EDIT_INFORMASI',
-          type: 'post',
-          data: {id: id},
-          success: function(body_Edit){ 
-           
-            // Add response in Modal body
-            $('.modalEditInformasi').html(body_Edit);
-            // Display Modal
-            $('#editInformasi').modal('show');
-          }
-        });
-    }
-
-    //--------------------------------------------------- makanan
-    function delete_makanan(id){
-       swal({
-        title: "Are you sure?",
-        text: "",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
-              $.ajax({
-              type: 'post',
-              url: 'Controller/master_p.php?role=DELETE_MAKANAN',
-              data: {idx:id},
-              success: function (data) {
-                  swal(
-                      'Deleted!',
-                      'Your menu has been deleted.',
-                      'success'
-                    ).then(function(){
-                      location.reload();
-                   });
-
-              }         
-              }); 
-          } else {
-            swal("Your menu file is safe!");
-          }
-        });
-    }
-    function detail_makanan(id){
-      $.ajax({
-          url: 'controller/master_p.php?role=DETAIL_MAKANAN',
-          type: 'post',
-          data: {id: id},
-          success: function(body_Edit){ 
-           
-            // Add response in Modal body
-            $('.modalDetailMakanan').html(body_Edit);
-            // Display Modal
-            $('#detailMakanan').modal('show');
-          }
-        });
-    }
-    function edit_makanan(id){
-      $.ajax({
-          url: 'controller/master_p.php?role=EDIT_MAKANAN',
-          type: 'post',
-          data: {id: id},
-          success: function(body_Edit){ 
-           
-            // Add response in Modal body
-            $('.modalEditMakanan').html(body_Edit);
-            // Display Modal
-            $('#editmakanan').modal('show');
-          }
-        });
-    }
-    //----------------------------------- laporan
-    function view_laporan(id){
-      $.ajax({
-          url: 'controller/master_p.php?role=VIEW_LAPORAN',
-          type: 'post',
-          data: {id: id},
-          success: function(body_Edit){ 
-           
-            // Add response in Modal body
-            $('.modalViewLaporan').html(body_Edit);
-            // Display Modal
-            $('#viewLaporan').modal('show');
-          }
-        });
-    }
-    function delete_laporan(id){
-       swal({
-        title: "Are you sure?",
-        text: "",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
-              $.ajax({
-              type: 'post',
-              url: 'Controller/master_p.php?role=DELETE_LAPORAN',
-              data: {idx:id},
-              success: function (data) {
-                  swal(
-                      'Deleted!',
-                      'Your menu has been deleted.',
-                      'success'
-                    ).then(function(){
-                      location.reload();
-                   });
-
-              }         
-              }); 
-          } else {
-            swal("Your menu file is safe!");
-          }
-        });
-    }
 
 
 	</script>

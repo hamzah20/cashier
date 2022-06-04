@@ -10,7 +10,7 @@
 	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="../boostrap/img/icons/icon-48x48.png" />
+	<link rel="shortcut icon" href="../boostrap/img/images/logo-coffee.png" />
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/pages-sign-in.html" />
 
@@ -30,7 +30,7 @@
 							<div class="card-body">
 								<div class="m-sm-4">
 									<div class="text-center">
-										<img src="../boostrap/img/images/logo-kemenkes.png" alt="Charles Hall" class="img-fluid" width="200" height="200" />
+										<img src="../boostrap/img/images/logo-coffee.png" alt="Charles Hall" class="img-fluid" />
 									</div>
 									<form action="controller/login_p.php?role=LOGIN_ADMIN" method="POST">
 										<div class="mb-3">
@@ -45,7 +45,7 @@
 											<label class="form-label">Groups</label>
 										  	<select class="form-select" id="inputGroupSelect01" name="slc_group"> 
 										    	<option value="Admin">Admin</option>
-										    	<option value="Super Admin">Super Admin</option> 
+										    	<option value="Owner">Owner</option> 
 										  	</select>
 										</div>
 										<div class="text-center mt-3">
