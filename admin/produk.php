@@ -59,6 +59,18 @@
 													<div class="col-sm-8"><?php echo $rs['satuan_produk']?></div>
 												</div>
 												<div class="row">
+													<div class="col-sm-3" style="font-weight: bolder;">Stock Sekarang </div>
+													<div class="col-sm-1" style="font-weight: bolder;">:</div>
+													<div class="col-sm-8">
+															<?php 
+																 $sql_stock="SELECT * FROM v_current_stock where PRODUCT_ID='".$rs['id_produk']."'";
+																$r_stock=mysqli_query($conn,$sql_stock);
+																$rs_stock=mysqli_fetch_array($r_stock);
+																echo $rs_stock['QTY_CURRENT']." KG";
+															?>
+													</div>
+												</div>
+												<div class="row">
 													<div class="col-sm-12">
 														<span class="badge bg-success"><?php echo $rs['status_produk']?></span>
 													</div>

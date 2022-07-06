@@ -1,4 +1,6 @@
-
+<?php 
+  include('../conn.php');
+?>
 <div class="modal fade" id="addJadwal" tabindex="-1" aria-labelledby="addJadwal" aria-hidden="true">
   <div class="in modal-dialog">
     <div class="modal-content">

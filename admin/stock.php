@@ -26,7 +26,6 @@
 									<th>NO</th>
 									<th>TRANS NO</th>
 									<th>TRANS DATE</th>
-									<th>USER</th>
 									<th>STATUS</th>
 									<th>DESKRIPSI</th>
 									<th>AKSI</th>
@@ -35,21 +34,22 @@
 							<tbody>
 								<?php
 									$i=1;
-									$sql="SELECT * FROM menu";
+									$sql="SELECT * FROM g_stock_adjust";
 									$r=mysqli_query($conn,$sql);
 									while($rs=mysqli_fetch_array($r)){
 										?>
 										<tr>
 											<td><?php echo $i;?></td>
-											<td><?php echo $rs['kode_menu'];?></td>
-											<td><?php echo $rs['nama_menu'];?></td>
-											<td><?php echo number_format($rs['harga']);?></td>
-											<td><?php echo $rs['status_menu'];?></td>
-											<td><?php echo $rs['deskripsi'];?></td>
-											<td>  
-													<button class="btn btn-sm btn-warning"  onclick="edit_produk(<?php echo $rs['rec_id']?>)"><i class="align-middle me-2" data-feather="edit-2"></i></button>
+											<td><?php echo $rs['TRANS_NO'];?></td>
+											<td><?php echo $rs['TRANS_DATE'];?></td>
+											
+											<td><?php echo $rs['STATUS'];?></td>
 
-													<button class="btn btn-sm btn-danger"  onclick="delete_produk(<?php echo $rs['rec_id']?>)"><i class="align-middle me-2" data-feather="trash"></i></button>
+											<td><?php echo $rs['NOTES'];?></td>
+											<td>  
+													<button class="btn btn-sm btn-warning"  onclick="view_detail_stock('<?php echo $rs['TRANS_NO']?>')"><i class="align-middle me-2" data-feather="eye"></i></button>
+
+													<button class="btn btn-sm btn-danger"  onclick="delete_stock('<?php echo $rs['TRANS_NO']?>')"><i class="align-middle me-2" data-feather="trash"></i></button>
 											</td>
 										</tr>
 										<?php
@@ -68,7 +68,7 @@
 			</div> 
 								
 			<?php include('modal/add_stock.php'); ?>
-			<?php include('modal/edit_stock.php'); ?>			
+			<?php include('modal/view_stock.php'); ?>			
 		
 			<?php include('include/footer.php'); ?>
 		</div>

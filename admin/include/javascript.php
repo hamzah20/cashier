@@ -10,9 +10,26 @@
 	<script type="text/javascript">
 		$("#addRow").click(function () {
 			var html = '';
-			html +='<tr>';
-				html +='<td><input type="text" name="txt_product" class="form-control"></td>';
-				html +='<td><input type="text" name="txt_quantity" class="form-control"></td>';
+			html +='<tr id="inputFormRow">';
+				// html +='<td><input type="text" name="txt_product" class="form-control"></td>';
+				html +='<td>';
+					html +='<select class="form-control" name="slc_produk[]">';
+						<?php
+							$sql="SELECT * FROM produk";
+							$r=mysqli_query($conn,$sql);
+							while($rs=mysqli_fetch_array($r)){
+								?>
+								html +='<option value="<?php echo $rs['id_produk']?>">';
+									html +='<?php echo $rs['nama_produk']?>';
+									html+='</option>';
+								<?php
+							}
+						?>
+					html +='</select>';
+				html +='</td>';
+				html +='<td><input type="text" name="txt_quantity[]" class="form-control"></td>';
+				html +='<td><button id="removeRow" type="button" class="btn btn-danger">Remove</button></td>';
+
 			html +='</tr>';
         $('#newRow').append(html);
         return false;
@@ -87,7 +104,53 @@
 	        });
 	    }
 	    //------------------------------- END OF JADWAL 
+	     function view_detail_stock(id){
+	      $.ajax({
+	          url: 'controller/master_p.php?role=VIEW_DETIAL',
+	          type: 'post',
+	          data: {id: id},
+	          success: function(body_Edit){ 
+	           
+	            // Add response in Modal body
+	            $('.modalViewstock').html(body_Edit);
+	            // Display Modal
 
+	            $('#viewStock').modal('show');
+	            tinymce.init({selector:'textarea'});
+
+	          }
+	        });
+	    }
+	    function delete_stock(id){
+	       swal({
+	        title: "Are you sure?",
+	        text: "",
+	        icon: "warning",
+	        buttons: true,
+	        dangerMode: true,
+	        })
+	        .then((willDelete) => {
+	          if (willDelete) {
+	              $.ajax({
+	              type: 'post',
+	              url: 'Controller/master_p.php?role=DELETE_STOCK',
+	              data: {idx:id},
+	              success: function (data) {
+	                  swal(
+	                      'Deleted!',
+	                      'Your Stock Adjustment has been deleted.',
+	                      'success'
+	                    ).then(function(){
+	                      location.reload();
+	                   });
+
+	              }         
+	              }); 
+	          } else {
+	            swal("Your Stock Adjustment file is safe!");
+	          }
+	        });
+	    }
 
 
 	</script>

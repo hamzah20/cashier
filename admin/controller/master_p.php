@@ -265,6 +265,86 @@
                 header('location:../makanan.php');
             }
         break;
+        case"TAMBAH_STOCK":
+            //------------- mencari nomor terkhir untuk penambahan produk
+
+            $tanggal=date("Y-m-d",strtotime($_POST['txt_date']));
+            $year=date("Y",strtotime($_POST['txt_date']));
+            $notes=$_POST['txt_notes'];
+
+            $sql="select count(*) as TOTAL from g_stock_adjust where substring(TRANS_NO,3,4)='".$year."'";
+            $r=mysqli_query($conn,$sql);
+            $rs=mysqli_fetch_array($r);
+            if ($rs["TOTAL"]!=0)
+            {
+                $sql1 = "select substring(TRANS_NO,7,5) as LAST_NO from g_stock_adjust WHERE substring(TRANS_NO,3,4)='".$year."' order by substring(TRANS_NO,7,5) desc";
+                $result= mysqli_query($conn,$sql1);
+                $rs = mysqli_fetch_array($result);
+                $run_no = str_pad(strval(intval($rs["LAST_NO"]) + 1), 5, "0", STR_PAD_LEFT);
+            }else{
+                $run_no = str_pad(strval(intval(1)), 5, "0", STR_PAD_LEFT);
+            }
+            $doc_no="S-".$year.$run_no;
+
+            $sql="INSERT INTO g_stock_adjust (TRANS_NO,TRANS_DATE,USER_ID,NOTES,STATUS,CREATED,UPDATED) VALUES('".$doc_no."','".$tanggal."','".$_SESSION['user_id']."','".$notes."','NEW',NOW(),NOW())";
+            $r=mysqli_query($conn,$sql);
+            $i=0;
+            foreach($_POST['slc_produk'] as $prod){
+               // echo $prod;
+               // echo $_POST['txt_quantity'][$i];
+                $sql="INSERT INTO g_stock_adjust_detail (TRANS_NO,PRODUCT_ID,QTY) VALUES('".$doc_no."','".$prod."',".$_POST['txt_quantity'][$i].")";
+                mysqli_query($conn,$sql);
+                $i++;
+            }
+
+            header('location:../stock.php');
+        break;
+        case"VIEW_DETIAL":
+           // echo $_POST['id'];
+            $sql="SELECT a.TRANS_NO,a.PRODUCT_ID,a.QTY,b.nama_produk FROM g_stock_adjust_detail   as a
+                left outer join produk as b on a.PRODUCT_ID=b.id_produk
+
+            where a.TRANS_NO='".$_POST['id']."'";
+            $r=mysqli_query($conn,$sql);
+            ?>
+                <table class="table table-stripped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Trans No</th>
+                            <th>Produk id</th>
+                            <th>Nama Produk</th>
+                            <th>QTY (KG)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $i=1;
+                        while($rs=mysqli_fetch_array($r)){
+                            ?>
+                            <tr>
+                                <td><?php echo $i?></td>
+                                <td><?php echo $rs['TRANS_NO']?></td>
+                                <td><?php echo $rs['PRODUCT_ID']?></td>
+                                <td><?php echo $rs['nama_produk']?></td>
+                                <td><?php echo $rs['QTY']?></td>
+                            </tr>
+                            <?php
+                            $i++;
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            <?php
+            
+        break;
+        case"DELETE_STOCK":
+            $id=$_POST['idx'];
+           $sql="DELETE FROM g_stock_adjust where TRANS_NO='".$id."'";
+          $r=mysqli_query($conn,$sql);
+          $sql="DELETE FROM g_stock_adjust_detail where TRANS_NO='".$id."'";
+          $r=mysqli_query($conn,$sql);
+        break;
         
     }
 

@@ -12,7 +12,7 @@
         
         <div class="mb-3">
           <label class="form-label">Trans Date</label>
-          <input type="date" name="txt_menu" class="form-control" placeholder="Trans_date" value="<?php echo date('Y-m-d')?>">
+          <input type="date" name="txt_date" class="form-control" placeholder="Trans_date" value="<?php echo date('Y-m-d')?>">
         </div>
 
         <div class="mb-3">
@@ -25,14 +25,15 @@
         <table class="table table-striped">
           <thead>
             <th>Product</th>
-            <th>Quantity</th>
+            <th>Quantity (KG)</th>
+            <th>Action</th>
           </thead>
           <tbody id="newRow">
             
           </tbody>
         </table>
         <button class="btn btn-primary" id="addRow">Add More</button>
-        <button class="btn btn-danger">Delete</button>
+        <!-- <button class="btn btn-danger">Delete</button> -->
         </div>
 
       
