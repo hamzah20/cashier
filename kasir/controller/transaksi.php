@@ -20,7 +20,17 @@
              $harga=$_POST['harga'];
              $jumlah=$_POST['jumlah'];
 
-             $sql="INSERT INTO g_keranjang (TRANS_NO,KODE_MENU,TOTAL,HARGA,TOTAL_HARGA) VALUES('".$kd_transaksi."','".$kd_barang."','".$jumlah."','".$harga."','".$jumlah*$harga."')";
+             $sql_count="SELECT COUNT(*) AS TOTAL FROM g_keranjang where TRANS_NO='".$kd_transaksi."' and KODE_MENU='".$kd_barang."'";
+             $r_count=mysqli_query($conn,$sql_count);
+             $rs_count=mysqli_fetch_array($r_count);
+
+             if($rs_count['TOTAL']>0){
+               $sql="UPDATE g_keranjang SET TOTAL=TOTAL+".$jumlah.", TOTAL_HARGA=(TOTAL+".$jumlah.")*HARGA where TRANS_NO='".$kd_transaksi."' AND KODE_MENU='".$kd_barang."'";
+             }else{
+                
+                 $sql="INSERT INTO g_keranjang (TRANS_NO,KODE_MENU,TOTAL,HARGA,TOTAL_HARGA) VALUES('".$kd_transaksi."','".$kd_barang."','".$jumlah."','".$harga."','".$jumlah*$harga."')";
+             }
+             
             $r=mysqli_query($conn,$sql);
             if($r){
                  $_SESSION['kode_menu']='';

@@ -67,7 +67,7 @@ include('include/header.php');
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="row">
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-8" style="padding: 0px;padding-left: 10px;">
                                             <div class="form-group">
                                                 <input type="text" class="form-control" name="kd_barang" readonly placeholder="Kode barang" value="<?php echo @$_SESSION['kode_menu'] ?>">
                                             </div>
@@ -75,10 +75,10 @@ include('include/header.php');
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#fajarmodal">Menu
-                                      </button> 
+                                             </button> 
                                             </div>
                                         </div>
-                                        <div class="col-sm-4"></div>
+                                        
                                     </div>
                                     <div class="form-group">
                                         <label for="">Nama Barang</label>
