@@ -1,4 +1,4 @@
 <?php 
 	// Mengarahkan ke halaman awal website
-	header("location:pasien");
+	header("location:kasir");
 ?>
