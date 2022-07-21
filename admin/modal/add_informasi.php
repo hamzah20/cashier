@@ -3,33 +3,30 @@
   <div class="in modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addInformasi"><i class="align-middle me-2" data-feather="plus"></i> Informasi</h5>
+        <h5 class="modal-title" id="addInformasi"><i class="align-middle me-2" data-feather="plus"></i> User</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="controller/master_p.php?role=TAMBAH_INFORMASI" method="POST" enctype="multipart/form-data">
+      <form action="controller/master_p.php?role=TAMBAH_USER" method="POST" enctype="multipart/form-data">
         <div class="modal-body">
         <div class="mb-3">
-          <label class="form-label">Judul Informasi</label>
-          <input type="text" name="txt_judul" class="form-control" placeholder="Judul" >
+          <label class="form-label">username</label>
+          <input type="text" name="txt_username" class="form-control" placeholder="Username" >
         </div>
      
         <div class="mb-3">
-          <label class="form-label">Tanggal Informasi</label>
-          <input type="date" name="txt_tgl" class="form-control" placeholder="Tanggal" >
+          <label class="form-label">password</label>
+          <input type="password" name="txt_password" class="form-control" placeholder="Password" >
         </div>
     
         <div class="mb-3">
-          <label class="form-label">Deskripsi</label>
-          <textarea class="form-control" name='txt_deskripsi'></textarea>
+          <label class="form-label">group</label>
+           <select class="form-control" name="slc_group">
+              <option value="Admin">Admin</option>
+              <option value="Kair">Kasir</option>
+              <option value="Owner">Owner</option>
+           </select>
         </div>
 
-        <div class="mb-3">
-          <label>Gambar</label>
-          <input type="file"  class="form-control" required="" name="txt_image">
-          <div class="invalid-feedback">
-           Image Can't Empty!!
-          </div>
-        </div>
 
         </div>
 

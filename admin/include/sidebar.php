@@ -29,12 +29,17 @@
 	              				<i class="align-middle" data-feather="book"></i> <span class="align-middle">Adjustment Stock +/-</span>
 	            			</a>
 						</li>
+						<li class="sidebar-item  bg-sidebar" style="background-color: #5e5f60;">
+							<a class="sidebar-link  bg-sidebar" style="background-color: #5e5f60;" href="transaksi.php">
+	              				<i class="align-middle" data-feather="book"></i> <span class="align-middle">Transaksi</span>
+	            			</a>
+						</li>
 						
 					<?php }  ?>
 					
 					<?php if($_SESSION['user_group'] == 'Owner' || $_SESSION['user_group'] == 'Admin' ){ ?>
 						<li class="sidebar-item  bg-sidebar" style="background-color: #5e5f60;">
-							<a class="sidebar-link  bg-sidebar" style="background-color: #5e5f60;" href="informasi.php">
+							<a class="sidebar-link  bg-sidebar" style="background-color: #5e5f60;" href="user.php">
 	              				<i class="align-middle" data-feather="book"></i> <span class="align-middle">User</span>
 	            			</a>
 						</li>

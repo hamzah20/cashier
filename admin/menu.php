@@ -47,9 +47,9 @@
 											<td><?php echo $rs['status_menu'];?></td>
 											<td><?php echo $rs['deskripsi'];?></td>
 											<td>  
-													<button class="btn btn-sm btn-warning"  onclick="edit_produk(<?php echo $rs['rec_id']?>)"><i class="align-middle me-2" data-feather="edit-2"></i></button>
+													<button class="btn btn-sm btn-warning"  onclick="edit_menu(<?php echo $rs['rec_id']?>)"><i class="align-middle me-2" data-feather="edit-2"></i></button>
 
-													<button class="btn btn-sm btn-danger"  onclick="delete_produk(<?php echo $rs['rec_id']?>)"><i class="align-middle me-2" data-feather="trash"></i></button>
+													<button class="btn btn-sm btn-danger"  onclick="delete_menu(<?php echo $rs['rec_id']?>)"><i class="align-middle me-2" data-feather="trash"></i></button>
 											</td>
 										</tr>
 										<?php

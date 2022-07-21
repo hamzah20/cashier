@@ -86,6 +86,36 @@
 	          }
 	        });
 	    }
+	    function delete_menu(id){
+	       swal({
+	        title: "Are you sure?",
+	        text: "",
+	        icon: "warning",
+	        buttons: true,
+	        dangerMode: true,
+	        })
+	        .then((willDelete) => {
+	          if (willDelete) {
+	              $.ajax({
+	              type: 'post',
+	              url: 'controller/master_p.php?role=DELETE_MENU',
+	              data: {idx:id},
+	              success: function (data) {
+	                  swal(
+	                      'Deleted!',
+	                      'Your Menu has been deleted.',
+	                      'success'
+	                    ).then(function(){
+	                      location.reload();
+	                   });
+
+	              }         
+	              }); 
+	          } else {
+	            swal("Your Menu file is safe!");
+	          }
+	        });
+	    }
 	    function edit_produk(id){
 	      $.ajax({
 	          url: 'controller/master_p.php?role=EDIT_PRODUK',
@@ -98,6 +128,23 @@
 	            // Display Modal
 
 	            $('#editProduks').modal('show');
+	            tinymce.init({selector:'textarea'});
+
+	          }
+	        });
+	    } 
+	    function edit_menu(id){
+	      $.ajax({
+	          url: 'controller/master_p.php?role=EDIT_MENU',
+	          type: 'post',
+	          data: {id: id},
+	          success: function(body_Edit){ 
+	           
+	            // Add response in Modal body
+	            $('.modalEditMenu').html(body_Edit);
+	            // Display Modal
+
+	            $('#editmenu').modal('show');
 	            tinymce.init({selector:'textarea'});
 
 	          }
@@ -148,6 +195,36 @@
 	              }); 
 	          } else {
 	            swal("Your Stock Adjustment file is safe!");
+	          }
+	        });
+	    }
+	    function delete_user(id){
+	       swal({
+	        title: "Are you sure?",
+	        text: "",
+	        icon: "warning",
+	        buttons: true,
+	        dangerMode: true,
+	        })
+	        .then((willDelete) => {
+	          if (willDelete) {
+	              $.ajax({
+	              type: 'post',
+	              url: 'Controller/master_p.php?role=DELETE_USER',
+	              data: {idx:id},
+	              success: function (data) {
+	                  swal(
+	                      'Deleted!',
+	                      'Your User Adjustment has been deleted.',
+	                      'success'
+	                    ).then(function(){
+	                      location.reload();
+	                   });
+
+	              }         
+	              }); 
+	          } else {
+	            swal("Your User Adjustment file is safe!");
 	          }
 	        });
 	    }

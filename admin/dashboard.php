@@ -7,48 +7,45 @@
 
 		<div class="main">
 			<!-- Header top in posyandu/include -->
+			
 			<?php include('include/header_top.php'); ?>
+			<div class="row">
+				<?php
+ 				$sql="SELECT * FROM menu";
+ 				$r=mysqli_query($conn,$sql);
+ 				while($rs=mysqli_fetch_array($r)){
+ 					?>
 
-			<div class="card">
-				<div class="card-body">
-					<div class="row">
-						<div class="col mt-0">
-							<h5 class="card-title">Earnings</h5>
-						</div>
-
-						<div class="col-auto">
-							<div class="stat text-primary">
-								<i class="align-middle" data-feather="dollar-sign"></i>
-							</div>
-						</div>
-					</div>
-					<h1 class="mt-1 mb-3">$21.300</h1>
-					<div class="mb-0">
-						<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
-						<span class="text-muted">Since last week</span>
-					</div>
-				</div>
+ 					<div class="col-lg-4 col-md-4 col-sm-4">
+		              <div class="card card-statistic-2">
+		                <div class="card-chart">
+		                  <canvas id="sales-chart" height="80"></canvas>
+		                </div>
+		                <div class="card-wrap">
+		                  <div class="card-header">
+		                    <h4><?php echo $rs['nama_menu']?></h4>
+		                  </div>
+		                  <div class="card-body">
+		                  	<?php
+		                  	$month=date('m');
+		                  	 $sql_count="SELECT sum(a.TOTAL) as total  FROM `g_transaksi_detail` AS a
+										left outer join g_transaksi as b 
+										on a.TRANS_NO=b.TRANS_NO 
+										WHERE a.KODE_MENU='".$rs['kode_menu']."' and month(b.TRANS_DATE)=".$month."";
+							$r_count=mysqli_query($conn,$sql_count);
+							$rs_count=mysqli_fetch_array($r_count);
+		                  	?>
+		                  <h1> <?php echo number_format($rs_count['total'],0);?></h1>
+		                  </div>
+		                </div>
+		              </div>
+		            </div>
+ 					<?php
+ 				}
+ 			?>
 			</div>
-			<div class="card">
-				<div class="card-body">
-					<div class="row">
-						<div class="col mt-0">
-							<h5 class="card-title">Orders</h5>
-						</div>
-
-						<div class="col-auto">
-							<div class="stat text-primary">
-								<i class="align-middle" data-feather="shopping-cart"></i>
-							</div>
-						</div>
-					</div>
-					<h1 class="mt-1 mb-3">64</h1>
-					<div class="mb-0">
-						<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
-						<span class="text-muted">Since last week</span>
-					</div>
-				</div>
-			</div>  
+ 			
+			
 
 			<?php include('include/footer.php'); ?>
 		</div>

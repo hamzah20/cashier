@@ -4,7 +4,7 @@
   		header('location:login.php');
 	}
 	else{
-		header('location:dashboard.php');
+		header('location:dashboard_new.php');
 	}
 
 ?>

@@ -18,6 +18,8 @@
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="profile.php">Profile</a></li> -->
+          <li><a class="nav-link scrollto" href="dashboard_new.php">Dashboard</a></li>
+          <li><a class="nav-link scrollto" href="dashboard.php">Transaksi</a></li>
           <li><a class="nav-link scrollto" href="controller/login_p.php?role=LOGOUT">Logout</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
