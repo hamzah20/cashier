@@ -22,9 +22,11 @@
 	<link href="../boostrap/css/bootstrap.min.css" rel="stylesheet">
 
 	<link href="../boostrap/css/app.css" rel="stylesheet">
+	<link href="../boostrap/css/datatable.min.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet"> 
 
 	<!-- Data tables -->
-	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+	<!-- <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
+	<!-- <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script> -->
+	<script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
 </head>

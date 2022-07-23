@@ -348,10 +348,152 @@
           $r=mysqli_query($conn,$sql);
          
         break;
-        
+        case"VIEW_TRANS":
+        $id=$_POST['id'];
+           ?>
+            <table class="table" id="scheduleTable">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Kode Transaksi</th>
+                        <th>Kode Menu</th>
+                        <th>Name Menu</th>
+                        <th>Harga</th>
+                        <th>Jumlah</th>
+                        <th>Total bayar</th>
+                        
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        $i=1;
+                        $sql="select g_transaksi_detail.*,menu.nama_menu from g_transaksi_detail
+                            left outer join menu on g_transaksi_detail.KODE_MENU=menu.kode_menu
+                         where TRANS_NO='".$id."'";
+                        $r=mysqli_query($conn,$sql);
+                        while($rs=mysqli_fetch_array($r)){
+                            ?>
+                            <tr>
+                                <td><?php echo $i?></td>
+                                <td><?php echo $rs['TRANS_NO']?></td>  
+                                <td><?php echo $rs['KODE_MENU']?></td>  
+                                <td><?php echo $rs['nama_menu']?></td>  
+                                <td><?php echo number_format($rs['HARGA'],0)?></td>  
+                                <td><?php echo $rs['TOTAL']?></td>  
+                                <td><?php echo number_format($rs['TOTAL_HARGA'],0)?></td>  
+
+                            </tr>
+                            <?php
+                            $i++;
+                        }
+                    ?>
+                    
+                    
+                </tbody>
+            </table>
+           <?php
+        break;
+        case"EDIT_USER":
+            $id=$_POST['id'];
+           // echo $id;
+            $sql="SELECT * FROM user where rec_id='".$id."'";
+            $r=mysqli_query($conn,$sql);
+            $rs=mysqli_fetch_array($r);
+            ?>
+
+             <div class="mb-3">
+                  <label class="form-label">userid</label>
+                  <input type="text" name="txt_userid" class="form-control" placeholder="Username" value="<?php echo $rs['id_user']?>" readonly>
+                </div> 
+                <div class="mb-3">
+                  <label class="form-label">username</label>
+                  <input type="text" name="txt_username" class="form-control" placeholder="Username" value="<?php echo $rs['username']?>">
+                </div>
+             
+                <div class="mb-3">
+                  <label class="form-label">password</label> <label style="color: red;">*Jika Tidak Berubah Kosongin Saja</label>
+                  <input type="password" name="txt_password" class="form-control" placeholder="Password" >
+                </div>
+            
+                <div class="mb-3">
+                  <label class="form-label">group</label>
+                   <select class="form-control" name="slc_group">
+                      <option value="Admin" <?php if($rs['user_group']=="Admin"){echo"selected=''";}?>>Admin</option>
+                      <option value="Kasir"  <?php if($rs['user_group']=="Kasir"){echo"selected=''";}?>>Kasir</option>
+                      <option value="Owner"  <?php if($rs['user_group']=="Owner"){echo"selected=''";}?>>Owner</option>
+                   </select>
+                </div>
+
+            <?php
+        break;
+        case"PROSES_EDIT_USER":
+            $userid=$_POST['txt_userid'];
+            $username=$_POST['txt_username'];
+            $password=md5($_POST['txt_password']);
+            $group=$_POST['slc_group'];
+           
+            if(!empty($_POST['txt_password'])){
+                $sql="UPDATE user SET 
+                    username='".$username."',
+                    user_group='".$group."'
+                    where id_user='".$userid."'
+                ";
+            }else{
+                 $sql="UPDATE user SET 
+                    username='".$username."',
+                    user_group='".$group."',
+                    password='".$password."'
+                    where id_user='".$userid."'
+                ";
+            }
+             $r=mysqli_query($conn,$sql);    
+            header('location:../user.php');
+
+        break;
+        case"EXPORT_TRANSAKSI":
+            $year=date('Y');
+            $month=date('m');
+            header("Content-type: application/vnd-ms-excel");
+            header("Content-Disposition: attachment; filename=Data Transaksi".$year.$month.".xls");
+            ?>
+            <table >
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Kode Transaksi</th>
+                        <th>Tanggal</th>
+                        <th>User Id</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <!-- <th>Action</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        $i=1;
+                        $sql="select * from g_transaksi where YEAR(TRANS_DATE)='".$year."' and MONTH(TRANS_DATE)='".$month."' order by TRANS_DATE DESC";
+                        $r=mysqli_query($conn,$sql);
+                        while($rs=mysqli_fetch_array($r)){
+                            ?>
+                            <tr>
+                                <td><?php echo $i?></td>
+                                <td><?php echo $rs['TRANS_NO']?></td>
+                                <td><?php echo $rs['TRANS_DATE']?></td>
+                                <td><?php echo $rs['USER_ID']?></td>
+                                <td><?php echo $rs['STATUS']?></td>
+                                <td><?php echo $rs['TOTAL']?></td>
+                               
+                            </tr>
+                            <?php
+                            $i++;
+                        }
+                    ?>
+                </tbody>
+            </table>
+            <?php
+        break;
     }
-
-
 
 
     function hitung_umur($tanggal_lahir){

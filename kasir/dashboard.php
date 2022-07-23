@@ -184,7 +184,7 @@ include('include/header.php');
 
 
 <div class="modal fade" id="fajarmodal" tabindex="-1" aria-labelledby="addMakanan" aria-hidden="true">
-  <div class="in modal-dialog">
+  <div class="in modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" >Daftar Menu</h5>
@@ -192,7 +192,37 @@ include('include/header.php');
       </div>
      
         <div class="modal-body">
-       <table class="table table-hover table-bordered" id="sampleTable">
+          <div class="row">
+             <?php 
+                $sql="SELECT * FROM menu";
+                $r=mysqli_query($conn,$sql);
+                while($rs=mysqli_fetch_array($r)){
+                  ?>
+                    <div class="col-lg-3">
+                      <div class="card">
+                        <img
+                          src="../<?php echo $rs['gambar_menu']?>"
+                          class="card-img-top"
+                          alt="Waterfall"
+                        />
+                        <div class="card-body">
+                          <h5 class="card-title"><?php echo $rs['nama_menu'] ?></h5>
+                          <p class="card-text">
+                           <?php echo number_format($rs['harga'],0) ?>
+                          </p>
+                          <!-- <a href="#!" class="btn btn-primary">Button</a> -->
+                          <a class="btn btn-primary" href="controller/transaksi.php?role=GET_MENU&id=<?php echo $rs['kode_menu'] ?>">Buy</a>
+                        </div>
+                      </div>
+                    </div>
+
+                  <?php
+                }
+            ?>
+            
+
+          </div>
+       <!-- <table class="table table-hover table-bordered" id="sampleTable">
           <thead>
               <tr>
                   <td>Kode Menu</td>
@@ -207,6 +237,7 @@ include('include/header.php');
                 $r=mysqli_query($conn,$sql);
                 while($rs=mysqli_fetch_array($r)){
                    ?>
+
               <tr>
                   <td><a href="controller/transaksi.php?role=GET_MENU&id=<?php echo $rs['kode_menu'] ?>"><?php echo $rs['kode_menu'] ?></a></td>
                   <td><?php echo $rs['nama_menu'] ?></td>
@@ -216,7 +247,7 @@ include('include/header.php');
                 }
               ?>
           </tbody>
-      </table>
+      </table> -->
       </div>
     
     </div>

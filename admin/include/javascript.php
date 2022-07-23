@@ -2,6 +2,7 @@
 
 <script src="../boostrap/js/sweetalert.min.js"></script>
 <script src="../boostrap/js/app.js"></script>
+<script src="../boostrap/js/dataTable.min.js"></script>
 <script src="../boostrap/js/tinymce.min.js" referrerpolicy="origin"></script>
 <!-- <script src="../boostrap/js/app.js"></script> -->
 
@@ -150,6 +151,23 @@
 	          }
 	        });
 	    }
+	    function edit_user(id){
+	      $.ajax({
+	          url: 'controller/master_p.php?role=EDIT_USER',
+	          type: 'post',
+	          data: {id: id},
+	          success: function(body_Edit){ 
+	           
+	            // Add response in Modal body
+	            $('.modalEditUser').html(body_Edit);
+	            // Display Modal
+
+	            $('#edituser').modal('show');
+	            tinymce.init({selector:'textarea'});
+
+	          }
+	        });
+	    }
 	    //------------------------------- END OF JADWAL 
 	     function view_detail_stock(id){
 	      $.ajax({
@@ -228,7 +246,23 @@
 	          }
 	        });
 	    }
+ function view_detail_trans(id){
+	      $.ajax({
+	          url: 'controller/master_p.php?role=VIEW_TRANS',
+	          type: 'post',
+	          data: {id: id},
+	          success: function(body_Edit){ 
+	           
+	            // Add response in Modal body
+	            $('.modalViewstock').html(body_Edit);
+	            // Display Modal
 
+	            $('#viewStock').modal('show');
+	            tinymce.init({selector:'textarea'});
+
+	          }
+	        });
+	    }
 
 	</script>
 	<!-- End Data Tables -->
